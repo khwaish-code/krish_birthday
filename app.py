@@ -6,33 +6,51 @@ st.set_page_config(
     page_title="For My Favourite Person ❤️",
     page_icon="❤️",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="collapsed"
 )
 
-# Keep index.html in the same folder as app.py.
-HTML_PATH = Path(__file__).parent / "index.html"
+# Load your birthday website HTML file
+HTML_FILE = Path(__file__).parent / "index.html"
 
 st.markdown(
     """
     <style>
-      [data-testid="stHeader"], [data-testid="stToolbar"], footer {visibility: hidden;}
-      .stApp { background: #10080d; }
-      [data-testid="stMainBlockContainer"] {
-        padding: 0 !important;
-        max-width: 100% !important;
-      }
-      iframe { border: 0; }
+        [data-testid="stHeader"],
+        [data-testid="stToolbar"],
+        footer {
+            visibility: hidden;
+        }
+
+        [data-testid="stMainBlockContainer"] {
+            padding: 0 !important;
+            max-width: 100% !important;
+        }
+
+        .stApp {
+            background: #10080d;
+        }
+
+        iframe {
+            border: none;
+        }
     </style>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
-if not HTML_PATH.exists():
+# Check whether index.html exists
+if not HTML_FILE.exists():
     st.error(
-        "Could not find index.html. Upload index.html in the same GitHub repository "
-        "and folder as app.py."
+        "index.html not found! Upload index.html "
+        "into the same GitHub repository folder as app.py."
     )
     st.stop()
 
-html = HTML_PATH.read_text(encoding="utf-8")
-components.html(html, height=950, scrolling=True)
+# Display the complete birthday website
+html_content = HTML_FILE.read_text(encoding="utf-8")
+
+components.html(
+    html_content,
+    height=1000,
+    scrolling=True
+)
